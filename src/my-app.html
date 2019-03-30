@@ -30,6 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="lazy-import" href="my-icons.html">
 <link rel="lazy-import" href="my-login.html">
 <link rel="lazy-import" href="my-ongoing.html">
+<link rel="lazy-import" href="my-complete.html">
 <link rel="lazy-import" href="my-post.html">
 <link rel="lazy-import" href="my-profile.html">
 <link rel="lazy-import" href="my-recent.html">
@@ -103,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a name="home" href="[[rootPath]]home">Home</a>
           <template is="dom-if" if="{{user.email}}">
               <a name="ongoing" href="[[rootPath]]ongoing">Ongoing</a>
+              <a name="complete" href="[[rootPath]]complete">Complete</a>
               <a name="recent" href="[[rootPath]]recent">Recent</a>
               <a name="chat" href="[[rootPath]]chat">Chat</a>
               <a name="profile" href="[[rootPath]]profile">Profile</a>
@@ -134,6 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             role="main">
           <my-home name="home"></my-home>
           <my-ongoing name="ongoing"></my-ongoing>
+          <my-complete name="complete"></my-complete>
           <my-recent name="recent"></my-recent>
           <my-chat name="chat"></my-chat>
           <my-profile name="profile"></my-profile>
