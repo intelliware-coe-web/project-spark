@@ -22,16 +22,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <div class="circle">1</div>
       <h1>Recent Page</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
+      <ul>
+        <template id="activePostList" is="dom-repeat" items="{{activePosts}}" as="post">
+          <li>
+            <div class="circle">[[updateIndex(index)]]</div>
+            [[post.description]]
+          </li>
+        </template>
+      </ul>
+      </div>
   </template>
 
   <script>
     class MyRecent extends Polymer.Element {
       static get is() { return 'my-recent'; }
+
+      static get properties() {
+        return {
+          activePosts: {
+            type: Array,
+            value: [
+              { description: 'Mow the Lawn' },
+              { description: 'Get groceries' }
+            ]
+          }
+        }
+      }
+
+      updateIndex(index) {
+        return index + 1;
+      }
     }
 
     window.customElements.define(MyRecent.is, MyRecent);
