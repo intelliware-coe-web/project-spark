@@ -10,9 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="shared-styles.html">
@@ -26,15 +25,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
+    <custom-style>
+        <style is="custom-style">
+          .flex-vertical {
+            @apply --layout-vertical;
+            height: 220px;
+          }
+          .flexchild-vertical {
+            @apply --layout-flex;
+          }
+          paper-radio-button::shadow #onRadio {
+            background-color: var(--app-primary-color);
+          }
+          paper-radio-button[checked]::shadow #offRadio {
+            border-color: var(--app-primary-color);
+          }
+        </style>
+      </custom-style>
     <div class="card">
       <div class="circle">1</div>
-      <h1>Job Title</h1>
+      <h1>Activity</h1>
       <iron-form>
-        <paper-input id="activity" label="I need..." name="activity" value=""></paper-input>
-        <paper-input id="location" label="Location" name="location" value=""></paper-input>
-        <paper-input id="duration" label="Duration" name="duration" value=""></paper-input>
-        <paper-textarea id="description" rows="4" label="Description"></paper-textarea>
-        <paper-button raised class="indigo" on-click="createPost">Post</paper-button>
+          <paper-radio-group selected="{{activity}}">
+              <paper-radio-button name="coffee" value="coffee">Coffee</paper-radio-button>
+              <paper-radio-button name="movie" value="movie">Movie</paper-radio-button>
+              <paper-radio-button name="talk" value="talk">Talk</paper-radio-button>
+            </paper-radio-group>
+            <paper-button raised class="indigo" on-click="createPost">Go</paper-button>
       </iron-form>
 
       <firebase-query id="createPostingQuery" path="{{pathUrl}}"></firebase-query>
@@ -52,6 +69,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           user: {
             type: Object,
             observer: '_userChanged'
+          },
+          activity: {
+            type: String,
+            value: 'coffee',
+            observer: '_activityChanged'
           }
         };
       }
@@ -60,13 +82,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.user = newValue;
       }
 
+      _activityChanged(newValue) {
+        this.activity = newValue;
+      }
+
       createPost() {
         const posting = {
           owner: this.user.uid,
-          activity: this.$.activity.value,
-          location: this.$.location.value,
-          duration: this.$.duration.value,
-          description: this.$.description.value,
+          activity: this.activity
         };
 
         this.pathUrl = '/postings' ;
