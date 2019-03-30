@@ -37,8 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button raised class="indigo" on-click="createPost">Post</paper-button>
       </iron-form>
 
-      <firebase-query id=createPostingQuery path="/postings"></firebase-query>
-
+      <firebase-query id="createPostingQuery" path="{{pathUrl}}"></firebase-query>
     </div>
   </template>
 
@@ -48,14 +47,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return 'my-post';
       }
 
+      static get properties() {
+        return {
+          user: {
+            type: Object,
+            observer: '_userChanged'
+          }
+        };
+      }
+
+      _userChanged(newValue) {
+        this.user = newValue;
+      }
+
+      ready() {
+        super.ready();
+      }
+
       createPost() {
         const posting = {
+          
           activity: this.$.activity.value,
           location: this.$.location.value,
           duration: this.$.duration.value,
           description: this.$.description.value,
         };
 
+        this.pathUrl = '/' + this.user.uid + '/postings' ;
         this.$.createPostingQuery.ref
           .push(posting)
           .then(console.log("DONE"));
