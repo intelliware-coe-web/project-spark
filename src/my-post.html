@@ -33,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-input label="Location" name="location" value="Batman"></paper-input>
         <paper-input label="Duration" name="duration" value="Batman"></paper-input>
         <paper-textarea rows="4" label="Description"></paper-textarea>
-        <paper-button>Post</paper-button>
+        <paper-button raised class="indigo">Post</paper-button>
       </iron-form>
 
       <firebase-document path="/users/{{userId}}/notes/{{noteId}}" data="{{noteData}}">
