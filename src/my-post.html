@@ -9,31 +9,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-post">
-  <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
 
-        padding: 10px;
+                padding: 10px;
+            }
+        </style>
+        <div class="card">
+            <div class="circle">1</div>
+            <h1>Post Page</h1>
+            <iron-form>
+                <paper-input label="I need..." name="activity" value="Batman"></paper-input>
+                <paper-input label="Location" name="location" value="Batman"></paper-input>
+                <paper-input label="Duration" name="duration" value="Batman"></paper-input>
+                <paper-input label="Description" name="description" value="Batman"></paper-input>
+                <paper-button>Post</paper-button>
+            </iron-form>
+        </div>
+    </template>
+
+    <script>
+      class MyPost extends Polymer.Element {
+        static get is() {
+          return 'my-post';
+        }
       }
-    </style>
 
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>Post Page</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
-  </template>
-
-  <script>
-    class MyPost extends Polymer.Element {
-      static get is() { return 'my-post'; }
-    }
-
-    window.customElements.define(MyPost.is, MyPost);
-  </script>
+      window.customElements.define(MyPost.is, MyPost);
+    </script>
 </dom-module>
