@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-post">
@@ -29,15 +30,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="circle">1</div>
       <h1>Job Title</h1>
       <iron-form>
-        <paper-input label="I need..." name="activity" value="Batman"></paper-input>
-        <paper-input label="Location" name="location" value="Batman"></paper-input>
-        <paper-input label="Duration" name="duration" value="Batman"></paper-input>
+        <paper-input label="I need..." name="activity" value=""></paper-input>
+        <paper-input label="Location" name="location" value=""></paper-input>
+        <paper-input label="Duration" name="duration" value=""></paper-input>
         <paper-textarea rows="4" label="Description"></paper-textarea>
-        <paper-button raised class="indigo">Post</paper-button>
+        <paper-button raised class="indigo" on-click="createPost">Post</paper-button>
       </iron-form>
 
-      <firebase-document path="/users/{{userId}}/notes/{{noteId}}" data="{{noteData}}">
-      </firebase-document>
+      <firebase-query id=createPostingQuery path="/postings"></firebase-query>
+
     </div>
   </template>
 
@@ -46,8 +47,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() {
         return 'my-post';
       }
+
+      createPost() {
+        this.$.createPostingQuery.ref
+          .push({title: "errand"})
+          .then(console.log("DONE"));
+      }
+
     }
 
     window.customElements.define(MyPost.is, MyPost);
+
   </script>
 </dom-module>
