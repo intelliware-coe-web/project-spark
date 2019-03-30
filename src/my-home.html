@@ -22,16 +22,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <div class="circle">1</div>
-      <h1>Home Page</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>Open activities</h1>
+      <ul>
+        <template id="activePostList" is="dom-repeat" items="[[listPostings(activePosts)]]" as="post">
+          <li>
+            <div class="circle">[[updateIndex(index)]]</div>
+            [[post.activity]] [[post.location]]
+          </li>
+        </template>
+      </ul>
     </div>
+    <firebase-document path="/postings" data="{{activePosts}}"></firebase-document>
   </template>
 
   <script>
     class MyHome extends Polymer.Element {
       static get is() { return 'my-home'; }
+
+      listPostings(activePosts) {
+        return Object.values(activePosts);
+      }
+
+      updateIndex(index) {
+        return index + 1;
+      }
+
     }
 
     window.customElements.define(MyHome.is, MyHome);
