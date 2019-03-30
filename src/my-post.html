@@ -30,10 +30,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="circle">1</div>
       <h1>Job Title</h1>
       <iron-form>
-        <paper-input label="I need..." name="activity" value=""></paper-input>
-        <paper-input label="Location" name="location" value=""></paper-input>
-        <paper-input label="Duration" name="duration" value=""></paper-input>
-        <paper-textarea rows="4" label="Description"></paper-textarea>
+        <paper-input id="activity" label="I need..." name="activity" value=""></paper-input>
+        <paper-input id="location" label="Location" name="location" value=""></paper-input>
+        <paper-input id="duration" label="Duration" name="duration" value=""></paper-input>
+        <paper-textarea id="description" rows="4" label="Description"></paper-textarea>
         <paper-button raised class="indigo" on-click="createPost">Post</paper-button>
       </iron-form>
 
@@ -49,8 +49,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       createPost() {
+        const posting = {
+          activity: this.$.activity.value,
+          location: this.$.location.value,
+          duration: this.$.duration.value,
+          description: this.$.description.value,
+        };
+
         this.$.createPostingQuery.ref
-          .push({title: "errand"})
+          .push(posting)
           .then(console.log("DONE"));
       }
 
