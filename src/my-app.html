@@ -92,14 +92,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <a name="home" href="[[rootPath]]home">Home</a>
           <template is="dom-if" if="{{user.email}}">
-              <a name="home" href="[[rootPath]]home">Home</a>
               <a name="ongoing" href="[[rootPath]]ongoing">Ongoing</a>
               <a name="recent" href="[[rootPath]]recent">Recent</a>
               <a name="chat" href="[[rootPath]]chat">Chat</a>
               <a name="profile" href="[[rootPath]]profile">Profile</a>
               <a name="post" href="[[rootPath]]post">Post</a>
-              <paper-button class="flex" raised on-tap="signOut">Sign Out</paper-button>
+              <a name="signout" href="" on-tap="signOut">Sign Out</a>
           </template>
           <template is="dom-if" if="{{!user.email}}">
             <a name="signup" href="[[rootPath]]signup">Sign Up</a>
@@ -175,7 +175,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Default to 'view1' in that case.
-        this.page = page || 'login';
+        this.page = page || 'home';
 
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {

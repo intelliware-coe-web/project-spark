@@ -43,7 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           user: {
             type: Object,
-            notify: true
+            notify: true,
+            observer: '_userChanged'
           },
           statusKnown: {
               type: Object
@@ -58,6 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _emailLogIn() {
         this.$.auth.signInWithEmailAndPassword(this.$.email.value, this.$.password.value)
               .then(this.handleSuccess.bind(this));
+      }
+
+      _userChanged() {
+        if (this.user) {
+          window.location.href = '/home';
+        }
       }
 
       handleSuccess(response) {
