@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 
 <dom-module id="my-profile">
   <template>
@@ -24,29 +25,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <div class="circle">1</div>
       <h1>Profile</h1>
       <iron-form>
-        <paper-input always-float-label label="Name"></paper-input>
-        <paper-input always-float-label label="Age"></paper-input>
-        <paper-input always-float-label label="Gender"></paper-input>
-        <paper-input always-float-label label="Height"></paper-input>
-        <paper-input always-float-label label="Weight"></paper-input>
-        <paper-input always-float-label label="Mobility"></paper-input>
-        <paper-input always-float-label label="Living Arrangement"></paper-input>
-        <paper-input always-float-label label="General Location"></paper-input>
-        <paper-input always-float-label label="Language"></paper-input>
-        <paper-input always-float-label label="Limitations"></paper-input>
-        <paper-button raised class="indigo">Confirm</paper-button>
+        <paper-input always-float-label id="name" label="Name"></paper-input>
+        <paper-input always-float-label id="age" label="Age"></paper-input>
+        <paper-input always-float-label id="gender" label="Gender"></paper-input>
+        <paper-input always-float-label id="height" label="Height"></paper-input>
+        <paper-input always-float-label id="weight" label="Weight"></paper-input>
+        <paper-input always-float-label id="mobility" label="Mobility"></paper-input>
+        <paper-input always-float-label id="livingArrangement" label="Living Arrangement"></paper-input>
+        <paper-input always-float-label id="location" label="General Location"></paper-input>
+        <paper-input always-float-label id="language" label="Language"></paper-input>
+        <paper-input always-float-label id="limitations" label="Limitations"></paper-input>
+        <paper-button raised class="indigo" on-click="updateProfile">Confirm</paper-button>
       </iron-form>
       
-     
+      <firebase-query id="query" path="{{pathUrl}}"></firebase-query>
     </div>
   </template>
 
   <script>
     class MyProfile extends Polymer.Element {
       static get is() { return 'my-profile'; }
+
+      static get properties() {
+        return {
+          user: {
+            type: Object,
+            observer: '_userChanged'
+          }
+        };
+      }
+
+      _userChanged(newValue) {
+        this.user = newValue;
+      }
+
+      updateProfile() {
+        const profle = {
+          userId: this.user.uid,
+          name: this.$.name.value,
+          age: this.$.age.value,
+          gender: this.$.gender.value,
+          height: this.$.height.value,
+          weight: this.$.weight.value,
+          mobility: this.$.mobility.value,
+          livingArrangement: this.$.livingArrangement.value,
+          location: this.$.location.value,
+          language: this.$.language.value,
+          limitations: this.$.limitations.value
+        };
+
+        this.pathUrl = '/profiles/' + this.user.uid ;
+        this.$.query.ref
+          .push(profle)
+          .then(console.log("DONE"));
+      }
     }
 
     window.customElements.define(MyProfile.is, MyProfile);
