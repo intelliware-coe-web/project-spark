@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <dom-module id="my-profile">
   <template>
@@ -23,9 +25,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <div class="circle">1</div>
-      <h1>Profile Page</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>Profile</h1>
+      <iron-form>
+        <paper-input always-float-label label="Name"></paper-input>
+        <paper-input always-float-label label="Age"></paper-input>
+        <paper-input always-float-label label="Gender"></paper-input>
+        <paper-input always-float-label label="Height"></paper-input>
+        <paper-input always-float-label label="Weight"></paper-input>
+        <paper-input always-float-label label="Mobility"></paper-input>
+        <paper-input always-float-label label="Living Arrangement"></paper-input>
+        <paper-input always-float-label label="General Location"></paper-input>
+        <paper-input always-float-label label="Language"></paper-input>
+        <paper-input always-float-label label="Limitations"></paper-input>
+        <paper-button raised class="indigo">Post</paper-button>
+      </iron-form>
+      
+     
     </div>
   </template>
 
