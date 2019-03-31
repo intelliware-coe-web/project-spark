@@ -9,33 +9,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="my-stars.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-complete">
-  <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+                padding: 10px;
+            }
+        </style>
+        <div class="card">
+            <div class="circle">1</div>
+            <h1>Job Completed</h1>
+            <my-stars value="{{rating}}"></my-stars>
+        </div>
+    </template>
 
-        padding: 10px;
+    <script>
+      class MyComplete extends Polymer.Element {
+        static get is() {
+          return 'my-complete';
+        }
+
+        static get properties() {
+          return {
+            rating: {
+              type: Number,
+              value: 3,
+            },
+          };
+        }
+
+        ready() {
+          super.ready();
+          this.shadowRoot
+            .querySelector('my-stars')
+            .addEventListener('value-changed', this.onRatingChanged.bind(this));
+        }
+
+        onRatingChanged() {
+          console.info(this.rating);
+        }
       }
-    </style>
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>Job Completed</h1>
-      <paper-icon-button icon="thumb-up"></paper-icon-button>
-    </div>
-  </template>
 
-  <script>
-    class MyComplete extends Polymer.Element {
-      static get is() {
-        return 'my-complete';
-      }
-    }
+      window.customElements.define(MyComplete.is, MyComplete);
 
-    window.customElements.define(MyComplete.is, MyComplete);
-
-  </script>
+    </script>
 </dom-module>
