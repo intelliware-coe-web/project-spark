@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-home">
@@ -19,6 +20,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 15px;
+      }
+
+      .circle {
+        font-size: 20px;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+      }
+
+      .pull-right {
+        float: right;
+      }
     </style>
 
     <div class="card">
@@ -28,6 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <li>
             <div class="circle">[[updateIndex(index)]]</div>
             [[post.activity]] [[post.location]]
+            <paper-button class="submit pull-right">Select</paper-button>
           </li>
         </template>
       </ul>
