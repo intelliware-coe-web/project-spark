@@ -108,11 +108,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
 
         if (posting.activity) {
-          let newNoteRef = this.$.createPostingQuery.ref.push();
-
-          return newNoteRef.set(posting).then(() => {
+          this.$.createPostingQuery.ref.push(posting).then((data) => {
             window.location.href = '/pending?postid=' + data.key;
-          });
+          })
         }
       }
 

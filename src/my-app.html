@@ -132,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}"></firebase-auth>
       <app-header-layout has-scrolling-region>
 
-        <template is="dom-if" if="{{user}}">
+        <template is="dom-if" if="{{user.email}}">
           <app-header slot="header" condenses reveals effects="waterfall">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>

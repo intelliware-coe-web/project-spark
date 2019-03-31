@@ -28,6 +28,14 @@
   },
   "builds": [
     {
+      "name": "bundled",
+      "bundle": true,
+      "js": {"minify": false},
+      "css": {"minify": true},
+      "html": {"minify": true},
+      "addServiceWorker": false
+    },
+    {
       "preset": "es5-bundled"
     },
     {
