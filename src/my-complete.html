@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="my-stars.html">
 <link rel="import" href="shared-styles.html">
 
@@ -25,6 +26,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h1>Job Completed</h1>
             <my-stars value="{{rating}}"></my-stars>
         </div>
+
+        <firebase-document path="/profiles/[[user.uid]]" data="{{profile}}"></firebase-document>
     </template>
 
     <script>
@@ -39,7 +42,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               type: Number,
               value: 3,
             },
+            user: {
+              type: Object,
+              observer: '_userChanged'
+            },
           };
+        }
+
+        _userChanged(newValue) {
+          this.user = newValue;
         }
 
         ready() {
