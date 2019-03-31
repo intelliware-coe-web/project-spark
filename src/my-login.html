@@ -73,13 +73,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _userChanged() {
         if (this.user) {
-          window.location.href = '/home';
+          window.location.href = '/post';
         }
       }
 
       handleSuccess(response) {
           this.user = response;
-          window.location.href = '/home';
+          window.location.href = '/post';
       }
     }
 
