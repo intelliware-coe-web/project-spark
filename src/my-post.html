@@ -43,7 +43,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
       </custom-style>
     <div class="card">
-      <div class="circle">1</div>
       <h1>Activity</h1>
       <iron-form>
           <paper-radio-group selected="{{activity}}">
@@ -72,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           activity: {
             type: String,
-            value: 'coffee',
+            value: null,
             observer: '_activityChanged'
           }
         };
@@ -93,9 +92,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
 
         this.pathUrl = '/postings' ;
-        this.$.createPostingQuery.ref
-          .push(posting)
-          .then(console.log("DONE"));
+        if (this.activity) {
+          this.$.createPostingQuery.ref
+            .push(posting)
+            .then(()=> {
+              window.location.href = '/home';
+            });
+        }
       }
 
     }
