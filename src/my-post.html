@@ -24,6 +24,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      paper-button {
+        margin-bottom: 20px;
+      }
+      
+      .submit {
+        margin-top: 20px;
+      }
     </style>
     <custom-style>
         <style is="custom-style">
@@ -45,11 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="select">Go watch a movie</paper-button>
               <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="select">Go for coffee or tea</paper-button>
               <paper-input id="other" label="Other" type="text" value="{{otherActivity}}"></paper-input>
-              <paper-button raised class="indigo submit" on-click="createPost" disabled="[[isActivityEmpty(activity, otherActivity)]]">next</paper-button>
+              <paper-button raised class="submit" on-click="createPost" disabled="[[isActivityEmpty(activity, otherActivity)]]">next</paper-button>
             </div>
       </iron-form>
 
-      <firebase-query id="createPostingQuery" path="{{pathUrl}}"></firebase-query>
+      <firebase-query id="createPostingQuery" path="/postings"></firebase-query>
     </div>
   </template>
 
@@ -96,10 +104,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         const posting = {
           owner: this.user.uid,
           activity: this.otherActivity ? this.otherActivity : this.activity,
-          volunteer: "1234567890"
+          volunteer: '1234567890'
         };
 
-        this.pathUrl = '/postings' ;
         if (posting.activity) {
           this.$.createPostingQuery.ref
             .push(posting)
