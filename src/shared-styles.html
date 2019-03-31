@@ -20,7 +20,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: 'Quicksand', sans-serif;
         /* Label and underline color when the input is focused */
         --paper-input-container-focus-color: var(--app-primary-color);
+        --inactive-color: #99cc99;
+        --active-color: #4CAF50;
+        --paper-button: var(--inactive-color);
+        --paper-button-ink-color: var(--app-primary-color);
       }
+
+      paper-button.default-button {
+        background: var(--inactive-color);
+        color: white;
+        margin-bottom: 10px;
+      }
+
+      paper-button:focus {
+        background-color: var(--active-color);
+      }
+
       .card {
         margin: 24px;
         padding: 16px;

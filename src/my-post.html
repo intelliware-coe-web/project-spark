@@ -32,18 +32,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           .flexchild-vertical {
             @apply --layout-flex;
           }
-          .activity {
-            padding-bottom: 15px;
-          }
         </style>
       </custom-style>
     <div class="card">
-      <h1>Hi {{user.name}}</h1>
+      <h1>Hi {{user.email}}</h1>
+      <p>What would you like to do today?</p>
       <iron-form>
           <div class="button-group container flex-vertical">
-                <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="activity">Coffee</paper-button>
-                <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="activity">Movie</paper-button>
-                <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="activity">Talk</paper-button>
+                <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="default-button">Coffee</paper-button>
+                <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="default-button">Movie</paper-button>
+                <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="default-button">Talk</paper-button>
               <hr/>
               <paper-button raised class="indigo" on-click="createPost">Go</paper-button>
             </div>
