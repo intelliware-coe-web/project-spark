@@ -27,11 +27,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h1>Pending Task</h1>
             <ul>
                 <li>
-                    [[posting.activity]] with [[posting.owner]]
+                    [[posting.activity]] with [[postingOwner.name]]
                 </li>
             </ul>
         </div>
         <firebase-document path="{{pathUrl}}" data="{{posting}}"></firebase-document>
+        <firebase-document path="/profiles/[[posting.owner]]" data="{{postingOwner}}"></firebase-document>
+        [[log(postingOwner)]]
+
+
+
         [[log(posting)]]
 
     </template>
@@ -42,11 +47,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 return 'my-pending';
             }
 
+            static get properties() {
+                return {
+                    postingOwner: {
+                        type: Object,
+                    }
+                };
+            }
+
             ready() {
                 super.ready();
                 let params = (new URL(document.location)).searchParams;
                 this.pathUrl = "/postings/" + params.get("postid");
             }
+
 
             log(obj) {
                 console.log(obj);
