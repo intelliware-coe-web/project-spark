@@ -2,7 +2,6 @@
   "entrypoint": "index.html",
   "shell": "src/my-app.html",
   "fragments": [
-    "src/my-app.html",
     "src/my-complete.html",
     "src/my-home.html",
     "src/my-icons.html",
@@ -13,7 +12,6 @@
     "src/my-recent.html",
     "src/my-signup.html",
     "src/my-splash.html",
-    "src/my-stars.html",
     "src/my-view404.html"
   ],
   "sources": [
