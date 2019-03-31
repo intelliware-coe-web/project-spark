@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       app-header {
-        color: #fff;
+        color: white;
         background-color: var(--app-primary-color);
       }
 
@@ -75,6 +75,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a.iron-selected {
         color: var(--app-primary-color);
         font-weight: bold;
+      }
+
+      .header-logo {
+        font-size: 35px;
+        margin-left: -60px;
+        text-align: center;
+        text-shadow: 2px 2px 1px #66cc66;
+      }
+
+      @media (min-width: 641px) {
+        .header-logo {
+          margin-left: 0;
+        }
       }
     </style>
     <firebase-app 
@@ -126,7 +139,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-header slot="header" condenses reveals effects="waterfall">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-              <div main-title>joy</div>
+              <div main-title>
+                <div class="header-logo">
+                  joy
+                </div>
+              </div>
             </app-toolbar>
           </app-header>
         </template>
