@@ -9,83 +9,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
-<link rel="import" href="../bower_components/s-rating/s-rating.html">
+<link rel="import" href="my-stars.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-complete">
-  <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+                padding: 10px;
+            }
+        </style>
+        <div class="card">
+            <div class="circle">1</div>
+            <h1>Job Completed</h1>
+            <my-stars value="{{rating}}"></my-stars>
+        </div>
+    </template>
 
-        padding: 10px;
-      }
-    </style>
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>Job Completed</h1>
-      <iron-form>
-        <paper-input id="activity" label="I need..." name="activity" value=""></paper-input>
-        <paper-input id="location" label="Location" name="location" value=""></paper-input>
-        <paper-input id="duration" label="Duration" name="duration" value=""></paper-input>
-        <paper-textarea id="description" rows="4" label="Review"></paper-textarea>
+    <script>
+      class MyComplete extends Polymer.Element {
+        static get is() {
+          return 'my-complete';
+        }
 
-        <s-rating value="5"></s-rating>
+        static get properties() {
+          return {
+            rating: {
+              type: Number,
+              value: 3,
+            },
+          };
+        }
 
-        <paper-button raised class="indigo" on-click="createPost">Post</paper-button>
-      </iron-form>
+        ready() {
+          super.ready();
+          this.shadowRoot
+            .querySelector('my-stars')
+            .addEventListener('value-changed', this.onRatingChanged.bind(this));
+        }
 
-      <firebase-query id="createPostingQuery" path="{{pathUrl}}"></firebase-query>
-    </div>
-  </template>
-
-  <script>
-    class MyComplete extends Polymer.Element {
-      static get is() {
-        return 'my-complete';
-      }
-
-      static get properties() {
-        return {
-          user: {
-            type: Object,
-            observer: '_userChanged'
-          }
-        };
-      }
-
-      _userChanged(newValue) {
-        this.user = newValue;
+        onRatingChanged() {
+          console.info(this.rating);
+        }
       }
 
-      ready() {
-        super.ready();
-      }
+      window.customElements.define(MyComplete.is, MyComplete);
 
-      createPost() {
-        const posting = {
-          owner: this.user.uid,
-          activity: this.$.activity.value,
-          location: this.$.location.value,
-          duration: this.$.duration.value,
-          description: this.$.description.value,
-        };
-
-        this.pathUrl = '/postings' ;
-        this.$.createPostingQuery.ref
-          .push(posting)
-          .then(console.log("DONE"));
-      }
-
-    }
-
-    window.customElements.define(MyComplete.is, MyComplete);
-
-  </script>
+    </script>
 </dom-module>

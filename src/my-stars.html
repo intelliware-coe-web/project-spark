@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-icon-button">
+
+<dom-module id="my-stars">
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+                padding: 10px;
+            }
+
+            :host paper-icon-button {
+                color: #f57c00;
+            }
+
+            :host paper-icon-button:hover ~ paper-icon-button {
+                color: inherit;
+            }
+
+            :host(:not(:hover):not([value])) > paper-icon-button,
+            :host(:not(:hover)[value="0"]) > paper-icon-button:nth-child(1) ~ paper-icon-button,
+            :host(:not(:hover)[value="1"]) > paper-icon-button:nth-child(2) ~ paper-icon-button,
+            :host(:not(:hover)[value="2"]) > paper-icon-button:nth-child(3) ~ paper-icon-button,
+            :host(:not(:hover)[value="3"]) > paper-icon-button:nth-child(4) ~ paper-icon-button,
+            :host(:not(:hover)[value="4"]) > paper-icon-button:nth-child(5) ~ paper-icon-button {
+                color: inherit;
+            }
+        </style>
+
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+    </template>
+    <script>
+      class MyStars extends Polymer.Element {
+        static get is() {
+          return 'my-stars';
+        }
+
+        static get properties() {
+          return {
+            value: {
+              type: Number,
+              reflectToAttribute: true,
+              notify: true,
+            },
+          };
+        }
+
+        onStarSelected(e) {
+          this.value = Array.prototype.indexOf
+            .call(e.target.parentNode.children, e.target);
+        }
+      }
+
+      customElements.define(MyStars.is, MyStars);
+    </script>
+</dom-module>
