@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             done(){
                 let params = (new URL(document.location)).searchParams;
                 this.pathUrl = "/postings/" + params.get("postid");
-                window.location.href = '/complete?postingid=' + params.get("postid");;
+                window.location.href = '/complete?postingId=' + params.get("postid");;
             }
 
         }
