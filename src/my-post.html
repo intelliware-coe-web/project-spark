@@ -86,8 +86,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (this.activity) {
           this.$.createPostingQuery.ref
             .push(posting)
-            .then(()=> {
-              window.location.href = '/home';
+            .then((data)=> {
+              window.location.href = '/pending?postid=' + data.key;
             });
         }
       }
