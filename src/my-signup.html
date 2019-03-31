@@ -9,13 +9,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="my-signup">
   <template>
-    <style include="shared-styles">
+    <style include="shared-styles iron-flex iron-flex-alignment">
       :host {
         display: block;
 
@@ -24,16 +26,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}"></firebase-auth>
-
-    <div class="card">
-      <h2>Sign Up</h2>
-      <div>
-          <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-          <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
-          <paper-input id="confirmPassword" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Passwords don't match"></paper-input>
-          <div class="layout horizontal" style="margin-top: 15px">
-              <paper-button class="flex submit" raised on-tap="signUp">Sign Up</paper-button>
-          </div>
+    
+    <div class="card tall layout vertical">
+      <h1 class="text-center">sign up</h1>
+      <div class="flex">
+        <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
+        <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+        <paper-input id="confirmPassword" label="Confirm Password" required auto-validate minlength="6" type="password" error-message="Passwords don't match"></paper-input>
+      </div>
+      <div class="text-center">
+        <paper-button class="wide" raised on-tap="signUp">sign up</paper-button>
       </div>
     </div>
   </template>
