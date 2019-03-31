@@ -23,6 +23,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 padding: 10px;
             }
+
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .capitalize {
+                text-transform: capitalize;
+            }
+
+            paper-button {
+                margin-top: 30px;
+            }
         </style>
 
 
@@ -34,15 +48,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             [[posting.activity]] with <paper-spinner-lite active class="green"></paper-spinner-lite>
                         </template>
                     <template is="dom-if" if="{{postingOwner.name}}">
-                        [[posting.activity]] with [[postingOwner.name]]
+                        <span class="capitalize">[[posting.activity]]</span> with [[postingOwner.name]]
                     </template>
                 </li>
             </ul>
+
+            <paper-button raised class="submit wide" on-click="done">Done</paper-button>
         </div>
         <firebase-document path="{{pathUrl}}" data="{{posting}}"></firebase-document>
         <firebase-document path="/profiles/[[posting.owner]]" data="{{postingOwner}}"></firebase-document>
 
-        <paper-button raised class="indigo" on-click="done">Done</paper-button>
+        
 
     </template>
 

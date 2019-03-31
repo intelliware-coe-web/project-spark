@@ -79,8 +79,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       handleSuccess(response) {
-          this.user = response;
-          window.location.href = '/profile';
+        console.log('handleSuccess', response);
+        this.user = response;
+        window.location.href = '/profile';
       }
     }
 

@@ -40,9 +40,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>What would you like to do today?</p>
       <iron-form>
           <div class="button-group container flex-vertical">
-              <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="select">Coffee</paper-button>
-              <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="select">Movie</paper-button>
-              <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="select">Talk</paper-button>
+            <paper-button id="walk" on-tap="selectActivity" data-activity="walk" raised class="select">Go for a walk</paper-button>
+              <paper-button id="exercise" on-tap="selectActivity" data-activity="exercise" raised class="select">Take an exercise class</paper-button>
+              <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="select">Go watch a movie</paper-button>
+              <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="select">Go for coffee or tea</paper-button>
               <paper-input id="other" label="Other" type="text" value="{{otherActivity}}"></paper-input>
               <paper-button raised class="indigo submit" on-click="createPost" disabled="[[isActivityEmpty(activity, otherActivity)]]">next</paper-button>
             </div>
