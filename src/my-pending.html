@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -40,11 +41,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
         <firebase-document path="{{pathUrl}}" data="{{posting}}"></firebase-document>
         <firebase-document path="/profiles/[[posting.owner]]" data="{{postingOwner}}"></firebase-document>
-        [[log(postingOwner)]]
 
-
-
-        [[log(posting)]]
+        <paper-button raised class="indigo" on-click="done">Done</paper-button>
 
     </template>
 
@@ -71,6 +69,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             log(obj) {
                 console.log(obj);
+            }
+
+            done(){
+                let params = (new URL(document.location)).searchParams;
+                this.pathUrl = "/postings/" + params.get("postid");
+                window.location.href = '/complete?postingid=' + params.get("postid");;
             }
 
         }
