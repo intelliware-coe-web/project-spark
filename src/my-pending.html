@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-pending">
@@ -27,7 +29,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h1>Pending Task</h1>
             <ul>
                 <li>
-                    [[posting.activity]] with [[postingOwner.name]]
+                    <template is="dom-if" if="{{!postingOwner.name}}">
+                            [[posting.activity]] with <paper-spinner-lite active class="green"></paper-spinner-lite>
+                        </template>
+                    <template is="dom-if" if="{{postingOwner.name}}">
+                        [[posting.activity]] with [[postingOwner.name]]
+                    </template>
                 </li>
             </ul>
         </div>
