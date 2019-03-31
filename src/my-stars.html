@@ -26,11 +26,11 @@
             }
         </style>
 
-        <paper-icon-button on-click="onStarClicked" icon="grade"></paper-icon-button>
-        <paper-icon-button on-click="onStarClicked" icon="grade"></paper-icon-button>
-        <paper-icon-button on-click="onStarClicked" icon="grade"></paper-icon-button>
-        <paper-icon-button on-click="onStarClicked" icon="grade"></paper-icon-button>
-        <paper-icon-button on-click="onStarClicked" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
+        <paper-icon-button on-tap="onStarSelected" icon="grade"></paper-icon-button>
     </template>
     <script>
       class MyStars extends Polymer.Element {
@@ -48,7 +48,7 @@
           };
         }
 
-        onStarClicked(e) {
+        onStarSelected(e) {
           this.value = Array.prototype.indexOf
             .call(e.target.parentNode.children, e.target);
         }
