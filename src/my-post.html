@@ -57,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
       </iron-form>
 
-      <firebase-query id="createPostingQuery" path="/postings"></firebase-query>
+      <firebase-query id="createPostingQuery"  path="/postings" data={{postingsData}}></firebase-query>
     </div>
   </template>
 
@@ -108,11 +108,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
 
         if (posting.activity) {
-          this.$.createPostingQuery.ref
-            .push(posting)
-            .then((data)=> {
-              window.location.href = '/pending?postid=' + data.key;
-            });
+          let newNoteRef = this.$.createPostingQuery.ref.push();
+
+          return newNoteRef.set(posting).then(() => {
+            window.location.href = '/pending?postid=' + data.key;
+          });
         }
       }
 
