@@ -10,8 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="shared-styles.html">
@@ -34,23 +32,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           .flexchild-vertical {
             @apply --layout-flex;
           }
-          paper-radio-button::shadow #onRadio {
-            background-color: var(--app-primary-color);
-          }
-          paper-radio-button[checked]::shadow #offRadio {
-            border-color: var(--app-primary-color);
+          .activity {
+            padding-bottom: 15px;
           }
         </style>
       </custom-style>
     <div class="card">
-      <h1>Activity</h1>
+      <h1>Hi {{user.name}}</h1>
       <iron-form>
-          <paper-radio-group selected="{{activity}}">
-              <paper-radio-button name="coffee" value="coffee">Coffee</paper-radio-button>
-              <paper-radio-button name="movie" value="movie">Movie</paper-radio-button>
-              <paper-radio-button name="talk" value="talk">Talk</paper-radio-button>
-            </paper-radio-group>
-            <paper-button raised class="indigo" on-click="createPost">Go</paper-button>
+          <div class="button-group container flex-vertical">
+                <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="activity">Coffee</paper-button>
+                <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="activity">Movie</paper-button>
+                <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="activity">Talk</paper-button>
+              <hr/>
+              <paper-button raised class="indigo" on-click="createPost">Go</paper-button>
+            </div>
       </iron-form>
 
       <firebase-query id="createPostingQuery" path="{{pathUrl}}"></firebase-query>
@@ -70,19 +66,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             observer: '_userChanged'
           },
           activity: {
-            type: String,
-            value: null,
-            observer: '_activityChanged'
+            type: String
           }
         };
       }
-
       _userChanged(newValue) {
         this.user = newValue;
       }
 
-      _activityChanged(newValue) {
-        this.activity = newValue;
+      selectActivity(event) {
+        this.activity = event.target.dataset.activity;
       }
 
       createPost() {
