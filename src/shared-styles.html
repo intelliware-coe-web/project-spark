@@ -18,22 +18,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       * {
         font-family: 'Quicksand', sans-serif;
-        /* Label and underline color when the input is focused */
+        /* App color theme */
         --paper-input-container-focus-color: var(--app-primary-color);
-        --inactive-color: #99cc99;
-        --active-color: #4CAF50;
-        --paper-button: var(--inactive-color);
+        --paper-inactive-color: #99cc99;
+        --paper-active-color: #4CAF50;
+        --paper-button: var(--paper-inactive-color);
         --paper-button-ink-color: var(--app-primary-color);
       }
 
-      paper-button.default-button {
-        background: var(--inactive-color);
-        color: white;
+      /* Buttons that are used for selection */
+      paper-button.select {
+        background: var(--paper-inactive-color);
+        color: black;
         margin-bottom: 10px;
       }
-
-      paper-button:focus {
-        background-color: var(--active-color);
+      paper-button.select:focus {
+        background-color: var(--paper-active-color);
+        color: white;
       }
 
       .card {

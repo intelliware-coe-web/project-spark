@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="shared-styles.html">
 
@@ -27,7 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <style is="custom-style">
           .flex-vertical {
             @apply --layout-vertical;
-            height: 220px;
           }
           .flexchild-vertical {
             @apply --layout-flex;
@@ -39,10 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>What would you like to do today?</p>
       <iron-form>
           <div class="button-group container flex-vertical">
-                <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="default-button">Coffee</paper-button>
-                <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="default-button">Movie</paper-button>
-                <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="default-button">Talk</paper-button>
-              <hr/>
+                <paper-button id="coffee" on-tap="selectActivity" data-activity="coffee" raised class="select">Coffee</paper-button>
+                <paper-button id="movie" on-tap="selectActivity" data-activity="movie" raised class="select">Movie</paper-button>
+                <paper-button id="talk" on-tap="selectActivity" data-activity="talk" raised class="select">Talk</paper-button>
+                <paper-input id="other" label="Other" type="text" value="{{otherActivity}}"></paper-input>
               <paper-button raised class="indigo" on-click="createPost">Go</paper-button>
             </div>
       </iron-form>
@@ -65,6 +65,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           activity: {
             type: String
+          },
+          otherActivity: {
+            type: String,
+            observer: '_otherActivityChanged'
           }
         };
       }
@@ -72,18 +76,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.user = newValue;
       }
 
+      _otherActivityChanged(newValue) {
+        this.activity = null;
+        this.otherActivity = newValue;
+      }
+
       selectActivity(event) {
+        this.$.other.value = null;
         this.activity = event.target.dataset.activity;
       }
 
       createPost() {
         const posting = {
           owner: this.user.uid,
-          activity: this.activity
+          activity: this.otherActivity ? this.otherActivity : this.activity
         };
 
         this.pathUrl = '/postings' ;
-        if (this.activity) {
+        if (posting.activity) {
           this.$.createPostingQuery.ref
             .push(posting)
             .then(()=> {
