@@ -24,18 +24,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 <link rel="import" href="my-icons.html">
 
-<link rel="lazy-import" href="my-app.html">
-<link rel="lazy-import" href="my-chat.html">
-<link rel="lazy-import" href="my-home.html">
-<link rel="lazy-import" href="my-icons.html">
-<link rel="lazy-import" href="my-login.html">
-<link rel="lazy-import" href="my-ongoing.html">
-<link rel="lazy-import" href="my-complete.html">
-<link rel="lazy-import" href="my-post.html">
-<link rel="lazy-import" href="my-profile.html">
-<link rel="lazy-import" href="my-recent.html">
-<link rel="lazy-import" href="my-signup.html">
-<link rel="lazy-import" href="my-view404.html">
+<link rel="lazy-import" href="src/my-app.html">
+<link rel="lazy-import" href="src/my-complete.html">
+<link rel="lazy-import" href="src/my-home.html">
+<link rel="lazy-import" href="src/my-login.html">
+<link rel="lazy-import" href="src/my-ongoing.html">
+<link rel="lazy-import" href="src/my-post.html">
+<link rel="lazy-import" href="src/my-profile.html">
+<link rel="lazy-import" href="src/my-recent.html">
+<link rel="lazy-import" href="src/my-signup.html">
+<link rel="lazy-import" href="src/my-splash.html">
+<link rel="lazy-import" href="src/my-stars.html">
+<link rel="lazy-import" href="src/my-view404.html">
 
 <dom-module id="my-app">
   <template>
@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       app-header {
-        color: #fff;
+        color: white;
         background-color: var(--app-primary-color);
       }
 
@@ -75,6 +75,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a.iron-selected {
         color: var(--app-primary-color);
         font-weight: bold;
+      }
+
+      .header-logo {
+        font-size: 35px;
+        margin-left: -60px;
+        text-align: center;
+        text-shadow: 2px 2px 1px #66cc66;
+      }
+
+      @media (min-width: 641px) {
+        .header-logo {
+          margin-left: 0;
+        }
       }
     </style>
     <firebase-app 
@@ -101,12 +114,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="home" href="[[rootPath]]home">Home</a>
+          
           <template is="dom-if" if="{{user.email}}">
+              <a name="home" href="[[rootPath]]home">Home</a>
               <a name="ongoing" href="[[rootPath]]ongoing">Ongoing</a>
-              <a name="complete" href="[[rootPath]]complete">Complete</a>
+              <a name="complete" href="[[rootPath]]complete">Review</a>
               <a name="recent" href="[[rootPath]]recent">Recent</a>
-              <a name="chat" href="[[rootPath]]chat">Chat</a>
               <a name="profile" href="[[rootPath]]profile">Profile</a>
               <a name="post" href="[[rootPath]]post">Post</a>
               <a name="signout" href="" on-tap="signOut">Sign Out</a>
@@ -122,29 +135,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}"></firebase-auth>
       <app-header-layout has-scrolling-region>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>joy</div>
-          </app-toolbar>
-        </app-header>
+        <template is="dom-if" if="{{user.email}}">
+          <app-header slot="header" condenses reveals effects="waterfall">
+            <app-toolbar>
+              <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+              <div main-title>
+                <div class="header-logo">
+                  joy
+                </div>
+              </div>
+            </app-toolbar>
+          </app-header>
+        </template>
 
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
+          <my-splash name="splash"></my-splash>
           <my-home name="home"></my-home>
           <my-ongoing name="ongoing"></my-ongoing>
           <my-recent name="recent" user="{{user}}"></my-recent>
-          <my-chat name="chat"></my-chat>
           <my-profile name="profile" user="{{user}}"></my-profile>
           <my-post name="post" user={{user}}></my-post>
           <my-signup name="signup" user={{user}}></my-signup>
           <my-login name="login" user={{user}}></my-login>
           <my-view404 name="view404"></my-view404>
-          <my-complete name="complete"></my-complete>
           <my-pending name="pending"></my-pending>
+          <my-complete name="complete" user="{{user}}"></my-complete>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -182,12 +201,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signOut() {
           this.$.auth.signOut();
           this.user = null;
+          window.location.href = '/';
       }
 
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Default to 'view1' in that case.
-        this.page = page || 'home';
+        this.page = page || 'splash';
 
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {

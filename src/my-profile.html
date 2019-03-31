@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 
 <dom-module id="my-profile">
   <template>
@@ -30,6 +31,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-input always-float-label id="name" label="Name"></paper-input>
         <paper-input always-float-label id="age" label="Age"></paper-input>
         <paper-input always-float-label id="gender" label="Gender"></paper-input>
+        <label id="label2">Role:</label>
+        <paper-radio-group selected="mentor" aria-labelledby="label2">
+          <paper-radio-button name="mentor">Mentor</paper-radio-button>
+          <paper-radio-button name="volunteer">Volunteer</paper-radio-button>
+        </paper-radio-group>
         <paper-input always-float-label id="height" label="Height"></paper-input>
         <paper-input always-float-label id="weight" label="Weight"></paper-input>
         <paper-input always-float-label id="mobility" label="Mobility"></paper-input>
@@ -53,7 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           user: {
             type: Object,
             observer: '_userChanged'
-          }
+          },
+          role: {
+            type: String
+          },
         };
       }
 
@@ -66,6 +75,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           userId: this.user.uid,
           name: this.$.name.value,
           age: this.$.age.value,
+          role: this.shadowRoot.querySelector('paper-radio-group > paper-radio-button[checked]').textContent,
+          ratings: [],
           gender: this.$.gender.value,
           height: this.$.height.value,
           weight: this.$.weight.value,
@@ -77,9 +88,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
 
         this.pathUrl = '/profiles/' + this.user.uid ;
-        this.$.query.ref
-          .push(profle)
+        this.$.query.ref.update(profle)
           .then(console.log("DONE"));
+      }
+      selectRole(event) {
+        this.role = event.target.dataset.activity;
       }
     }
 

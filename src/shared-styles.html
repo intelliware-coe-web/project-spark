@@ -19,22 +19,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       * {
         font-family: 'Quicksand', sans-serif;
-        /* Label and underline color when the input is focused */
+
+        --green: #4CAF50;
+        /* App color theme */
         --paper-input-container-focus-color: var(--app-primary-color);
-        --inactive-color: #99cc99;
-        --active-color: #4CAF50;
-        --paper-button: var(--inactive-color);
+        --paper-inactive-color: #99cc99;
+        --paper-active-color: var(--green);
+        --paper-button: var(--paper-inactive-color);
         --paper-button-ink-color: var(--app-primary-color);
       }
 
-      paper-button.default-button {
-        background: var(--inactive-color);
-        color: white;
+      /* Buttons that are used for selection */
+      paper-button {
+        border-radius: 15px;
+      }
+      paper-button.select {
+        background: var(--paper-inactive-color);
+        color: black;
         margin-bottom: 10px;
       }
+      paper-button.select:focus {
+        background-color: var(--paper-active-color);
+        color: white;
+      }
+      paper-button.submit {
+        background-color: var(--paper-active-color);
+        color: white;
+      }
+      paper-button.submit[disabled] {
+        background: #eaeaea;
+        cursor: auto;
+        pointer-events: none;
+      }
+      
 
-      paper-button:focus {
-        background-color: var(--active-color);
+      paper-button.wide {
+        width: 100%;
       }
 
       .card {
@@ -59,10 +79,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       h1 {
-        margin: 16px 0;
-        color: #212121;
-        font-size: 22px;
+        margin: 20px 0;
+        color: var(--green);
+        font-size: 30px;
         font-family: 'Quicksand', sans-serif;
+      }
+
+      .text-center {
+        text-align: center;
       }
     </style>
   </template>
