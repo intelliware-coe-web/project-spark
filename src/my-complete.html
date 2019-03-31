@@ -27,7 +27,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <my-stars value="{{rating}}"></my-stars>
         </div>
 
-        <firebase-document path="/profiles/[[user.uid]]" data="{{profile}}"></firebase-document>
+        <firebase-document id="myProfile" path="/profiles/[[user.uid]]" data="{{myProfile}}"></firebase-document>
+        <firebase-document id="posting" path="/postings/[[postingId]]" data="{{posting}}"></firebase-document>
+        <firebase-document id="ownerProfile" path="/profiles/[[posting.owner]]" data="{{postingOwner}}"></firebase-document>
+        <firebase-document id="volunteerProfile" path="/profiles/[[posting.volunteer]]" data="{{postingVolunteer}}"></firebase-document>
     </template>
 
     <script>
@@ -44,7 +47,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             user: {
               type: Object,
-              observer: '_userChanged'
+              observer: '_userChanged',
+            },
+            myProfile: {
+              type: Object,
+            },
+            postingOwner: {
+              type: Object,
+            },
+            postingVolunteer: {
+              type: Object,
+            },
+            posting: {
+              type: Object,
             },
           };
         }
@@ -58,10 +73,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.shadowRoot
             .querySelector('my-stars')
             .addEventListener('value-changed', this.onRatingChanged.bind(this));
+
+          const parsedUrl = new URL(window.location.href);
+          this.postingId = parsedUrl.searchParams.get('postingId');
         }
 
         onRatingChanged() {
-          console.info(this.rating);
+          if (this.posting.owner !== this.user.uid) {
+            this.$.ownerProfile.ref.update({ ...this.postingOwner, ratings: (this.postingOwner.ratings || []).concat(this.rating) })
+          } else {
+            this.$.volunteerProfile.ref.update({ ...this.postingVolunteer, ratings: (this.postingVolunteer.ratings || []).concat(this.rating) })
+          }
         }
       }
 
