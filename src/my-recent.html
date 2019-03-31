@@ -9,52 +9,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-recent">
-  <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
 
-        padding: 10px;
-      }
-    </style>
+                padding: 10px;
+            }
+        </style>
 
-    <div class="card">
-      <h1>Recent Page</h1>
-      <ul>
-        <template id="activePostList" is="dom-repeat" items="{{activePosts}}" as="post">
-          <li>
-            <div class="circle">[[updateIndex(index)]]</div>
-            [[post.description]]
-          </li>
-        </template>
-      </ul>
-      </div>
-  </template>
 
-  <script>
-    class MyRecent extends Polymer.Element {
-      static get is() { return 'my-recent'; }
+        <div class="card">
+            <h1>Recent Page</h1>
+            <ul>
+                <template id="activePostList" is="dom-repeat" items="[[listPostings(activePosts)]]" as="post">
+                    <li>
+                        <div class="circle">[[updateIndex(index)]]</div>
+                        [[post.activity]]
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <firebase-document path="/postings" data="{{activePosts}}"></firebase-document>
+    </template>
 
-      static get properties() {
-        return {
-          activePosts: {
-            type: Array,
-            value: [
-              { description: 'Mow the Lawn' },
-              { description: 'Get groceries' }
-            ]
-          }
+    <script>
+      class MyRecent extends Polymer.Element {
+        static get is() {
+          return 'my-recent';
         }
+
+        listPostings(activePosts) {
+          return Object.values(activePosts);
+        }
+
+        updateIndex(index) {
+          return index + 1;
+        }
+
       }
 
-      updateIndex(index) {
-        return index + 1;
-      }
-    }
-
-    window.customElements.define(MyRecent.is, MyRecent);
-  </script>
+      window.customElements.define(MyRecent.is, MyRecent);
+    </script>
 </dom-module>
