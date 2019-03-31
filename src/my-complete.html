@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-stars.html">
 <link rel="import" href="shared-styles.html">
 
@@ -22,9 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
         <div class="card">
-            <div class="circle">1</div>
-            <h1>Job Completed</h1>
+            <h1>Completed. Please review your experience.</h1>
             <my-stars value="{{rating}}"></my-stars>
+            <paper-button raised class="indigo submit" on-click="onRatingChanged" disabled="[[isActivityEmpty(activity, otherActivity)]]">Submit</paper-button>
+
         </div>
 
         <firebase-document id="myProfile" path="/profiles/[[user.uid]]" data="{{myProfile}}"></firebase-document>
@@ -70,10 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         ready() {
           super.ready();
-          this.shadowRoot
-            .querySelector('my-stars')
-            .addEventListener('value-changed', this.onRatingChanged.bind(this));
-
           const parsedUrl = new URL(window.location.href);
           this.postingId = parsedUrl.searchParams.get('postingId');
         }
@@ -84,6 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           } else {
             this.$.volunteerProfile.ref.update({ ...this.postingVolunteer, ratings: (this.postingVolunteer.ratings || []).concat(this.rating) })
           }
+          window.location.href = "/home";
         }
       }
 
