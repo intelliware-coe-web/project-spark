@@ -9,7 +9,7 @@
   "scripts": {
     "build": "polymer build",
     "start": "polymer serve",
-    "deploy": "firebase deploy",
+    "deploy": "polymer build && firebase deploy",
     "lint": "npm run lint:javascript && polymer lint",
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
     "test": "polymer test",

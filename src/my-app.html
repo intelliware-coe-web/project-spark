@@ -201,10 +201,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           window.location.href = '/';
       }
 
+      _defaultRoute() {
+        return this.user && this.user.email ? 'post' : 'splash';
+      }
+
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Default to 'view1' in that case.
-        this.page = page || 'splash';
+        this.page = page || this._defaultRoute();
 
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {

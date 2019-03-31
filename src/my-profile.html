@@ -23,6 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      paper-button.wide {
+        margin-top: 20px;
+      }
     </style>
 
     <div class="card">
@@ -43,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-input always-float-label id="location" label="General Location"></paper-input>
         <paper-input always-float-label id="language" label="Language"></paper-input>
         <paper-input always-float-label id="limitations" label="Limitations"></paper-input>
-        <paper-button raised class="indigo" on-click="updateProfile">Confirm</paper-button>
+        <paper-button raised class="wide submit" on-click="updateProfile">Confirm</paper-button>
       </iron-form>
       
       <firebase-query id="query" path="{{pathUrl}}"></firebase-query>
