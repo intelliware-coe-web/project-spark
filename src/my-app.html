@@ -100,8 +100,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="home" href="[[rootPath]]home">Home</a>
+          
           <template is="dom-if" if="{{user.email}}">
+              <a name="home" href="[[rootPath]]home">Home</a>
               <a name="ongoing" href="[[rootPath]]ongoing">Ongoing</a>
               <a name="complete" href="[[rootPath]]complete">Complete</a>
               <a name="recent" href="[[rootPath]]recent">Recent</a>
@@ -120,18 +121,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}"></firebase-auth>
       <app-header-layout has-scrolling-region>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>joy</div>
-          </app-toolbar>
-        </app-header>
+        <template is="dom-if" if="{{user.email}}">
+          <app-header slot="header" condenses reveals effects="waterfall">
+            <app-toolbar>
+              <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+              <div main-title>joy</div>
+            </app-toolbar>
+          </app-header>
+        </template>
 
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
+          <my-splash name="splash"></my-splash>
           <my-home name="home"></my-home>
           <my-ongoing name="ongoing"></my-ongoing>
           <my-recent name="recent" user="{{user}}"></my-recent>
@@ -178,12 +182,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       signOut() {
           this.$.auth.signOut();
           this.user = null;
+          window.location.href = '/';
       }
 
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Default to 'view1' in that case.
-        this.page = page || 'home';
+        this.page = page || 'splash';
 
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {

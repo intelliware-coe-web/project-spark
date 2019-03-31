@@ -1,0 +1,71 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-splash">
+  <template>
+    <style include="shared-styles iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      .full {
+        height: 100vh;
+        background: white;
+      }
+      
+      .container {
+        padding: 30px;
+      }
+
+      img {
+        max-width: 300px;
+      }
+
+      paper-button + paper-button {
+        margin-top: 20px;
+      }
+    </style>
+    <div class="full layout vertical">
+      <div class="layout vertical container flex">
+
+        <div class="flex text-center">
+          <img src="../images/joylogo.png" alt="joy logo">
+        </div>
+        <div class="text-center">
+          <paper-button class="wide submit" raised on-tap="login">login</paper-button>
+          <paper-button class="wide" raised on-tap="signUp">sign up</paper-button>
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <script>
+    class MySplash extends Polymer.Element {
+      static get is() { return 'my-splash'; }
+
+      login() {
+        window.location.href = '/login';
+      }
+
+      signUp() {
+        window.location.href = '/signup';
+      }
+    }
+
+    window.customElements.define(MySplash.is, MySplash);
+  </script>
+</dom-module>

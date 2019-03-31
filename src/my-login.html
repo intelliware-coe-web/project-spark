@@ -21,8 +21,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles iron-flex iron-flex-alignment">
       :host {
         display: block;
+      }
 
-        padding: 10px;
+      .card.tall {
+        height: 85vh;
       }
     </style>
 
@@ -31,8 +33,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card tall layout vertical">
       <h1 class="text-center">login</h1>
       <div class="flex">
-        <paper-input id="email" label="Email" required auto-validate type="email"></paper-input>
-        <paper-input id="password" label="Password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
+        <paper-input id="email" label="email" required auto-validate type="email"></paper-input>
+        <paper-input id="password" label="password" required auto-validate minlength="6" type="password" error-message="Minimum 6 letters required"></paper-input>
       </div>
       <div class="text-center">
         <paper-button class="wide submit" raised on-tap="logIn">login</paper-button>
